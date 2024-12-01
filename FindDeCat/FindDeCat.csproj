@@ -1,0 +1,186 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+		<ApplicationId>com.zuslen.FindDeCat</ApplicationId>
+	</PropertyGroup>
+
+	<!-- Windows-specific configuration -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+		<ApplicationId>com.companyname.FindDeCat</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ApplicationTitle>Find The Cat</ApplicationTitle>
+		<ApplicationDisplayVersion>1.6</ApplicationDisplayVersion>
+		<ApplicationVersion>6</ApplicationVersion>
+
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
+		<!-- TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks -->
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>FindDeCat</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!--SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion -->
+		<!--SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion -->
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<!--SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion -->
+		<AndroidSigningKeyStore>FindTheCat.jks</AndroidSigningKeyStore>
+		<PackageIcon>rectangle21.png</PackageIcon>
+		<ErrorReport>none</ErrorReport>
+
+		<WindowsPackageType>None</WindowsPackageType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+		<AndroidPackageFormat>aab</AndroidPackageFormat>
+		<AndroidLinkMode>SdkAndUserAssemblies</AndroidLinkMode>
+		<AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+		<AndroidEnableR8>true</AndroidEnableR8>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<JavaMaximumHeapSize>100G</JavaMaximumHeapSize>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	  <DebugSymbols>True</DebugSymbols>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningKeyAlias>kot</AndroidSigningKeyAlias>
+	  <AndroidSigningStorePass>obormot</AndroidSigningStorePass>
+	  <AndroidSigningKeyPass>obormot</AndroidSigningKeyPass>
+	  <WarningLevel>0</WarningLevel>
+	  <FileAlignment>2048</FileAlignment>
+	</PropertyGroup>
+
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	  <JavaMaximumHeapSize>100G</JavaMaximumHeapSize>
+	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningKeyAlias>kot</AndroidSigningKeyAlias>
+	  <AndroidSigningStorePass>obormot</AndroidSigningStorePass>
+	  <AndroidSigningKeyPass>obormot</AndroidSigningKeyPass>
+	  <WarningLevel>0</WarningLevel>
+	  <FileAlignment>2048</FileAlignment>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <WarningLevel>0</WarningLevel>
+	  <FileAlignment>2048</FileAlignment>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <WarningLevel>0</WarningLevel>
+	  <FileAlignment>2048</FileAlignment>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
+		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.0.3" />
+		<PackageReference Include="FluentResults" Version="3.16.0" />
+		<PackageReference Include="GoogleApi" Version="5.4.8" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Plugin.MediaManager" Version="1.2.2" />
+		<PackageReference Include="Polyglot" Version="1.2.0" />
+		<PackageReference Include="Serilog" Version="4.0.1" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+		<PackageReference Include="System.Windows.Extensions" Version="8.0.0" />
+		<PackageReference Include="Teddy.MvvmCross.Plugin.SimpleAudioPlayer" Version="1.0.8" />
+		<PackageReference Include="Translations" Version="1.42.0" />
+		<PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.6.0" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\ErrorPage.xaml.cs">
+	    <DependentUpon>ErrorPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\ErrorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>	
+	
+	<ItemGroup>
+	  <Folder Include="Services\Translations\" />
+	</ItemGroup>
+
+	<ItemGroup>
+			<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#8A2BE2" BaseSize="500,500" />
+			<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+		    <MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
+
+	 		<MauiFont Include="Resources\Fonts\*" />
+
+			<EmbeddedResource Include="Resources\*.json">
+				<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+				<LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		    </EmbeddedResource>
+
+		
+		<!--<MauiImage Include="Resources/Images/rectangle21.png" />
+		<MauiImage Include="Resources/Images/rectangle22.png" />
+		<MauiImage Include="Resources/Images/rectangle23.png" />
+		<MauiImage Include="Resources/Images/rectangle24.png" />-->
+
+
+	<MauiImage Include="Resources/Images/*" />  <!--will embed the images directly into the app.-->
+	<!--<MauiAsset Include="Resources/Images/*" Link="%(Filename)%(Extension)" /> --><!--will treat the images as assets, copying them to the app's file system.-->
+
+	<MauiAsset Include="Resources/Sounds/*" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<MauiAsset Include="Resources/Images/rectangle21.png" Link="rectangle21.png" />
+		<MauiAsset Include="Resources/Images/rectangle22.png" Link="rectangle22.png" />
+		<MauiAsset Include="Resources/Images/rectangle23.png" Link="rectangle23.png" />
+		<MauiAsset Include="Resources/Images/rectangle24.png" Link="rectangle24.png" />
+	</ItemGroup>-->
+
+	<!--added to reduce the android size, does not include images-->
+	<!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<AndroidLinkMode>SdkAndUserAssemblies</AndroidLinkMode>
+		<AndroidEnableProguard>false</AndroidEnableProguard>
+		<AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+		<AndroidAotAssemblies>true</AndroidAotAssemblies>
+		<AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+	</PropertyGroup>-->
+		
+	<ItemGroup>
+	  <None Remove="Resources\colors.json" />
+		<None Remove="Resources\numbers.json" />
+		<None Remove="Resources\Images\splashSplashScreen.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\numbers.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\colors.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>

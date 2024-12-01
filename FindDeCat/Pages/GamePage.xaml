@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindDeCat.Pages.GamePage">
+    <Grid BackgroundColor="#FFE0CC">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="3">
+                <Picker x:Name="LanguagePicker" 
+                        SelectedIndex="0"
+                        HorizontalOptions="Center"
+                        HeightRequest="48" 
+                        Margin="5">
+                </Picker>
+
+                <Button x:Name="AutoClickButton" 
+                        Text="▶️" 
+                        Clicked="OnAutoClickButtonClicked"
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center"
+                        BackgroundColor="#FFDAB9"  
+                        TextColor="Black"
+                        HeightRequest="48" 
+                        WidthRequest="48" 
+                        Margin="5"/>
+
+                <Picker x:Name="DelayPicker" 
+                        SelectedIndex="0"
+                        HorizontalOptions="Center"
+                        HeightRequest="48" 
+                        Margin="5">
+                </Picker>
+
+                <Button x:Name="ChanceToGetCatGifButton" 
+                        Clicked="OnCatGifChanceClick"
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center"
+                        BackgroundColor="#FFDAB9"  
+                        TextColor="Black"
+                        HeightRequest="48" 
+                        WidthRequest="48" 
+                        Margin="5"/>
+
+                <Picker x:Name="CategoryPicker" 
+                        SelectedIndex="1"
+                        HorizontalOptions="Center"
+                        HeightRequest="48" 
+                        Margin="5">
+                </Picker>
+
+            </HorizontalStackLayout>
+
+            <Label x:Name="GameLabel"
+                   Text=""
+                   Grid.Row="1"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="48"
+                   FontAttributes="Bold"
+                   Margin="10"/>
+
+            <Grid x:Name="GameGrid" 
+                  Grid.Row="2" 
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="0"
+                  SizeChanged="OnLayoutChanged">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image x:Name="Rect1" Grid.Row="0" Grid.Column="0" Source="rectangle21.png" Aspect="AspectFit" Margin="1"/>
+                <Image x:Name="Rect2" Grid.Row="0" Grid.Column="1" Source="rectangle22.png" Aspect="AspectFit" Margin="1"/>
+                <Image x:Name="Rect3" Grid.Row="1" Grid.Column="0" Source="rectangle23.png" Aspect="AspectFit" Margin="1"/>
+                <Image x:Name="Rect4" Grid.Row="1" Grid.Column="1" Source="rectangle24.png" Aspect="AspectFit" Margin="1"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
