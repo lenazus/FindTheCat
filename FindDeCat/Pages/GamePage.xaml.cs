@@ -151,20 +151,17 @@ namespace FindDeCat.Pages
             _pickerHandler.InitializeDelayPicker(DelayPicker);
         }
 
-
-        public virtual Picker GetLanguagePicker() => LanguagePicker;
-        public virtual Picker GetCategoryPicker() => CategoryPicker;
-        public virtual Picker GetDelayPicker() => DelayPicker;
-
         #endregion
 
         #region Error Handling
+        
         private async Task DisplayErrorAndCloseApp(string error)
         {
             Log.Error(error);
             await Application.Current.MainPage.DisplayAlert("Error", AppConfiguration.Messages.GENERAL_ERROR_MESSAGE, "OK");
             //ApplicationCloser.CloseApplication();
         }
+        
         #endregion
     }
 }
