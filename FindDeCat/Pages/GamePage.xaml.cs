@@ -159,7 +159,6 @@ namespace FindDeCat.Pages
         {
             Log.Error(error);
             await Application.Current.MainPage.DisplayAlert("Error", AppConfiguration.Messages.GENERAL_ERROR_MESSAGE, "OK");
-            //ApplicationCloser.CloseApplication();
         }
         
         #endregion
